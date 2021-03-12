@@ -1,14 +1,4 @@
 #!/usr/bin/env bash
-#
-# Copyright (C) 2020 Edwiin Kusuma Jaya (MWG_Ryzen)
-#
-# Simple Local Kernel Build Script
-#
-# Configured for Redmi Note 8 / ginkgo custom kernel source
-#
-# Setup build env with akhilnarang/scripts repo
-#
-# Use this script on root of kernel directory
 
 sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 bold=$(tput bold)
@@ -28,14 +18,14 @@ done
 CONFIG=vendor/ginkgo-perf_defconfig
 KERNEL_DIR=$(pwd)
 PARENT_DIR="$(dirname "$KERNEL_DIR")"
-KERN_IMG="/home/ryuzenn/out-meme/arch/arm64/boot/Image.gz-dtb"
-DTBO_IMG="/home/ryuzenn/out-meme/arch/arm64/boot/dtbo.img"
-export KBUILD_BUILD_USER="EdwiinKJ"
-export KBUILD_BUILD_HOST="RastaMod69"
-export PATH="/home/ryuzenn/toolchain/rastamod-clang/bin:$PATH"
-export LD_LIBRARY_PATH="/home/ryuzenn/toolchain/rastamod-clang/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$(/home/ryuzenn/toolchain/rastamod-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
-export out=/home/ryuzenn/out-meme
+KERN_IMG="/home/xzanxz/out-a10/arch/arm64/boot/Image.gz-dtb"
+DTBO_IMG="/home/xzanxz/out-a10/arch/arm64/boot/dtbo.img"
+export KBUILD_BUILD_USER="MF"
+export KBUILD_BUILD_HOST="MhdIyan"
+export PATH="/home/xzanxz/proton-clang/bin:$PATH"
+export LD_LIBRARY_PATH="/home/xzanxz/proton-clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$(/home/xzanxz/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export out=/home/xzanxz/out-a10
 
 # Functions
 clang_build () {
@@ -68,7 +58,7 @@ fi
 
 # clone AnyKernel3
 if ! [ -d "AnyKernel3" ]; then
-    git clone https://github.com/kutemeikito/AnyKernel3
+    git clone https://github.com/MhdIyan7525/AnyKernel3
 else
     echo "${bold}Direktori AnyKernel3 Sudah Ada, Tidak Perlu di Clone${normal}"
 fi
