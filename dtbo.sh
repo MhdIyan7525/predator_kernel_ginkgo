@@ -18,15 +18,14 @@ done
 CONFIG=vendor/ginkgo-perf_defconfig
 KERNEL_DIR=$(pwd)
 PARENT_DIR="$(dirname "$KERNEL_DIR")"
-KERN_IMG="/home/xzanxz/out-A10/arch/arm64/boot/Image.gz-dtb"
-DTBO_IMG="/home/xzanxz/out-A10/arch/arm64/boot/dtbo.img"
+KERN_IMG="$HOME/out-a10/arch/arm64/boot/Image.gz-dtb"
+DTBO_IMG="$HOME/out-a10/arch/arm64/boot/dtbo.img"
 export KBUILD_BUILD_USER="MF"
 export KBUILD_BUILD_HOST="MhdIyan"
-export KBUILD_BUILD_VERSION="1"
-export PATH="/home/xzanxz/proton-clang/bin:$PATH"
-export LD_LIBRARY_PATH="/home/xzanxz/proton-clang/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$(/home/xzanxz/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
-export out=/home/xzanxz/out-A10
+export PATH="$HOME/toolchain/proton-clang/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/toolchain/proton-clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$($HOME/toolchain/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export out=$HOME/out-a10
 
 # Functions
 clang_build () {
