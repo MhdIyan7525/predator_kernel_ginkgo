@@ -58,7 +58,7 @@ fi
 
 # clone AnyKernel3
 if ! [ -d "AnyKernel3" ]; then
-    git clone https://github.com/kutemeikito/AnyKernel3
+    git clone https://github.com/MhdIyan7525/AnyKernel3
 else
     echo "${bold}Direktori AnyKernel3 Sudah Ada, Tidak Perlu di Clone${normal}"
 fi
