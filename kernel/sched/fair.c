@@ -4806,7 +4806,7 @@ static const u64 cfs_bandwidth_slack_period = 5 * NSEC_PER_MSEC;
 static int runtime_refresh_within(struct cfs_bandwidth *cfs_b, u64 min_expire)
 {
 	struct hrtimer *refresh_timer = &cfs_b->period_timer;
-	u64 remaining;
+	s64 remaining;
 
 	/* if the call-back is running a quota refresh is already occurring */
 	if (hrtimer_callback_running(refresh_timer))
@@ -4814,7 +4814,7 @@ static int runtime_refresh_within(struct cfs_bandwidth *cfs_b, u64 min_expire)
 
 	/* is a quota refresh about to occur? */
 	remaining = ktime_to_ns(hrtimer_expires_remaining(refresh_timer));
-	if (remaining < min_expire)
+	if (remaining < (s64)min_expire)
 		return 1;
 
 	return 0;
@@ -8121,10 +8121,12 @@ static inline void reset_eenv(struct energy_env *eenv)
  */
 static inline struct energy_env *get_eenv(struct task_struct *p, int prev_cpu)
 {
-	struct energy_env *eenv;
-	cpumask_t cpumask_possible_cpus;
-	int cpu = smp_processor_id();
-	int i;
+	struct cpumask *cpus = this_cpu_cpumask_var_ptr(select_idle_mask);
+	struct sched_domain *this_sd;
+	u64 avg_cost, avg_idle;
+	u64 time, cost;
+	s64 delta;
+	int cpu, nr = INT_MAX;
 
 	eenv = &(per_cpu(eenv_cache, cpu));
 	reset_eenv(eenv);
@@ -8149,6 +8151,7 @@ static inline struct energy_env *get_eenv(struct task_struct *p, int prev_cpu)
 	return eenv;
 }
 
+<<<<<<< HEAD
 static inline int wake_to_idle(struct task_struct *p)
 {
 	return (current->flags & PF_WAKE_UP_IDLE) ||
@@ -8179,6 +8182,15 @@ static inline struct cpumask *find_rtg_target(struct task_struct *p)
 			rtg_target = NULL;
 	} else {
 		rtg_target = NULL;
+=======
+	cpumask_and(cpus, sched_domain_span(sd), &p->cpus_allowed);
+
+	for_each_cpu_wrap(cpu, cpus, target) {
+		if (!--nr)
+			return -1;
+		if (idle_cpu(cpu))
+			break;
+>>>>>>> 776e957ca26de28298b9dac44ec327a1a7464408
 	}
 
 	rcu_read_unlock();
